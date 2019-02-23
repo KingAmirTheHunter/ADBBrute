@@ -11,15 +11,24 @@ $str = $int.ToString()
         $str = $str.Insert(5,'-')
     
         $str = $str -split '-'
-
+        $Counter = 1
         for($i=0; $i -le 3; $i++){
             $Num = [int]::Parse($str[$i])
             #Start-Sleep -Milliseconds 200
 
             $Command = $Range["$Num"] 
             $Command = $Command.Toint32($Null) -join ' '
-            Write-Host "Trying $Num"
+            
+            
+            Write-Host "$Num" -NoNewline
+            if("$Counter"%4 -eq 0){
+                Write-Host " Tested..."
+		
+            }
             adb.exe shell input tap "$Command"
+            ++$Counter
+	    [System.GC]::Collect()
+
         }
     }
 }
