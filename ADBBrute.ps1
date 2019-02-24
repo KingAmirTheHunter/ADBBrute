@@ -3,7 +3,15 @@ $Range = @((550,1700), (180,800), (600,800), (900,800), (180,1100), (600,1100), 
 
 foreach ($int in 0000..9999){
 $str = $int.ToString()
-
+    if ($str.length -eq 1){
+        $str = "000" + $str 
+    }
+        if ($str.length -eq 2){
+        $str = "00" + $str 
+    }
+        if ($str.length -eq 3){
+        $str = "0" + $str 
+    }
     if ($str.length -ge 4){
 
         $str = $str.Insert(1,'-')
@@ -25,6 +33,7 @@ $str = $int.ToString()
                 Write-Host " Tested..."
 		
             }
+
             adb.exe shell input tap "$Command"
             ++$Counter
 	    [System.GC]::Collect()
